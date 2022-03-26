@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pm"
+    android:backgroundTintMode="add"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".MainActivity">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:background="#593C3C"
+            android:backgroundTint="#E671D3D6"
+
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp"
+            
+            >
+
+            <TextView
+                android:id="@+id/txtGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Interfaz Guardar"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+
+            <Spinner
+                android:id="@+id/spEmbarcaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtGuardar"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"></Spinner>
+
+            <Spinner
+                android:id="@+id/spDestinos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spEmbarcaciones"
+                android:layout_margin="15dp"></Spinner>
+
+            <Spinner
+                android:id="@+id/spPasajeros"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spDestinos"
+                android:layout_margin="15dp"></Spinner>
+
+            <Spinner
+                android:id="@+id/spHora"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spDestinos"
+                android:layout_margin="15dp"
+                android:layout_toRightOf="@id/spPasajeros"></Spinner>
+
+            <Button
+                android:id="@+id/btGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spPasajeros"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="#4CAF50"
+                android:text="Guardar"
+                ></Button>
+
+        </RelativeLayout>
+
+
+
+
+</LinearLayout>

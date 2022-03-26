@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opciones">
+        <item>Embarcaciones</item>
+        <item>Opcion 2</item>
+        <item>Opcion 3</item>
+        <item>Opcion 4</item>
+    </string-array>
+    <string-array name="opciones2">
+        <item>Destinos</item>
+        <item>Opcion 2</item>
+        <item>Opcion 3</item>
+        <item>Opcion 4</item>
+    </string-array>
+    <string-array name="opciones3">
+        <item>Pasajeros</item>
+        <item>Opcion 2</item>
+        <item>Opcion 3</item>
+        <item>Opcion 4</item>
+    </string-array>
+    <string-array name="opciones4">
+        <item>Hora</item>
+        <item>Opcion 2</item>
+        <item>Opcion 3</item>
+        <item>Opcion 4</item>
+    </string-array>
+
+
+</resources>
