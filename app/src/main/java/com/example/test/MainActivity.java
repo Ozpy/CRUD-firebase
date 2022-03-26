@@ -28,74 +28,151 @@ import java.util.List;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    EditText etNombre, etApellido, etCorreo, etContrasena;
-    ListView lvDatos;
-
-    Spinner opciones, opciones2, opciones3, opciones4;
-    Button btGuardar;
-
     private List<Persona> listPerson = new ArrayList<Persona>();
     ArrayAdapter<Persona> arrayAdapterPersona;
 
-    Persona personaSelected;
+    EditText nomP, appP,correoP,passwordP;
+    ListView listV_personas;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+    Persona personaSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        nomP = findViewById(R.id.txt_nombrePersona);
+        appP = findViewById(R.id.txt_appPersona);
+        correoP = findViewById(R.id.txt_correoPersona);
+        passwordP = findViewById(R.id.txt_passwordPersona);
 
-        opciones = (Spinner)findViewById(R.id.spEmbarcaciones);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.opciones, android.R.layout.simple_spinner_item);
-        opciones.setAdapter(adapter);
+        listV_personas = findViewById(R.id.lv_datosPersonas);
+        inicializarFirebase();
+        listarDatos();
 
-        opciones2 = (Spinner)findViewById(R.id.spDestinos);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.opciones2, android.R.layout.simple_spinner_item);
-        opciones2.setAdapter(adapter2);
-
-        opciones3 = (Spinner)findViewById(R.id.spPasajeros);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.opciones3, android.R.layout.simple_spinner_item);
-        opciones3.setAdapter(adapter3);
-
-        opciones4 = (Spinner)findViewById(R.id.spHora);
-        ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(this, R.array.opciones4, android.R.layout.simple_spinner_item);
-        opciones4.setAdapter(adapter4);
-
-
-
-
-
+        listV_personas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                personaSelected = (Persona) parent.getItemAtPosition(position);
+                nomP.setText(personaSelected.getNombre());
+                appP.setText(personaSelected.getApellido());
+                correoP.setText(personaSelected.getCorreo());
+            }
+        });
 
     }
 
+    private void listarDatos() {
+        databaseReference.child("Persona").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listPerson.clear();
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()){
+                    Persona p = objSnaptshot.getValue(Persona.class);
+                    listPerson.add(p);
 
+                    arrayAdapterPersona = new ArrayAdapter<Persona>(MainActivity.this, android.R.layout.simple_list_item_1, listPerson);
+                    listV_personas.setAdapter(arrayAdapterPersona);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
 
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        //firebaseDatabase.setPersistenceEnabled(true);
+        databaseReference = firebaseDatabase.getReference();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-    private void validacion() {
-        String nombre = etNombre.getText().toString();
-        String apellido = etApellido.getText().toString();
-        String correo = etCorreo.getText().toString();
-        String contrasena = etContrasena.getText().toString();
-        if(nombre.equals("")){
-            etNombre.setError("Required");
-        } else if(apellido.equals("")){
-            etApellido.setError("Required");
-        }else if(correo.equals("")){
-            etCorreo.setError("Required");
-        }else if(contrasena.equals("")){
-            etContrasena.setError("Required");
+        String nombre = nomP.getText().toString();
+        String correo = correoP.getText().toString();
+        String password = passwordP.getText().toString();
+        String app = appP.getText().toString();
+
+        switch (item.getItemId()){
+            case R.id.icon_add:{
+                if (nombre.equals("")||correo.equals("")||password.equals("")||app.equals("")){
+                    validacion();
+                }
+                else {
+                    Persona p = new Persona();
+                    p.setUid(UUID.randomUUID().toString());
+                    p.setNombre(nombre);
+                    p.setApellido(app);
+                    p.setCorreo(correo);
+                    p.setPassword(password);
+                    databaseReference.child("Persona").child(p.getUid()).setValue(p);
+                    Toast.makeText(this, "Agregado", Toast.LENGTH_LONG).show();
+                    limpiarCajas();
+                }
+                break;
+            }
+            case R.id.icon_save:{
+                Persona p = new Persona();
+                p.setUid(personaSelected.getUid());
+                p.setNombre(nomP.getText().toString().trim());
+                p.setApellido(appP.getText().toString().trim());
+                p.setCorreo(correoP.getText().toString().trim());
+                p.setPassword(passwordP.getText().toString().trim());
+                databaseReference.child("Persona").child(p.getUid()).setValue(p);
+                Toast.makeText(this,"Actualizado", Toast.LENGTH_LONG).show();
+                limpiarCajas();
+                break;
+            }
+            case R.id.icon_delete:{
+                Persona p = new Persona();
+                p.setUid(personaSelected.getUid());
+                databaseReference.child("Persona").child(p.getUid()).removeValue();
+                Toast.makeText(this,"Eliminado", Toast.LENGTH_LONG).show();
+                limpiarCajas();
+                break;
+            }
+            default:break;
         }
+        return true;
     }
 
     private void limpiarCajas() {
-        etNombre.setText("");
-        etApellido.setText("");
-        etCorreo.setText("");
-        etContrasena.setText("");
+        nomP.setText("");
+        correoP.setText("");
+        passwordP.setText("");
+        appP.setText("");
+    }
+
+    private void validacion() {
+        String nombre = nomP.getText().toString();
+        String correo = correoP.getText().toString();
+        String password = passwordP.getText().toString();
+        String app = appP.getText().toString();
+        if (nombre.equals("")){
+            nomP.setError("Required");
+        }
+        else if (app.equals("")){
+            appP.setError("Required");
+        }
+        else if (correo.equals("")){
+            correoP.setError("Required");
+        }
+        else if (password.equals("")){
+            passwordP.setError("Required");
+        }
     }
 }

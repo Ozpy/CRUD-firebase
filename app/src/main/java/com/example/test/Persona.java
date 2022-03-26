@@ -1,14 +1,12 @@
 package com.example.test;
 
 public class Persona {
+
     private String uid;
     private String Nombre;
-    private String Apellidos;
+    private String Apellido;
     private String Correo;
-    private String Contrasena;
-
-    public Persona() {
-    }
+    private String Password;
 
     public String getUid() {
         return uid;
@@ -26,12 +24,12 @@ public class Persona {
         Nombre = nombre;
     }
 
-    public String getApellidos() {
-        return Apellidos;
+    public String getApellido() {
+        return Apellido;
     }
 
-    public void setApellidos(String apellidos) {
-        Apellidos = apellidos;
+    public void setApellido(String apellido) {
+        Apellido = apellido;
     }
 
     public String getCorreo() {
@@ -42,12 +40,12 @@ public class Persona {
         Correo = correo;
     }
 
-    public String getContrasena() {
-        return Contrasena;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setContrasena(String contrasena) {
-        Contrasena = contrasena;
+    public void setPassword(String password) {
+        Password = password;
     }
 
     @Override
@@ -55,4 +53,3 @@ public class Persona {
         return Nombre;
     }
 }
-

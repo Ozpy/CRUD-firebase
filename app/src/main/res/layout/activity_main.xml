@@ -3,84 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/pm"
-    android:backgroundTintMode="add"
     android:orientation="vertical"
     android:padding="15dp"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
 
-        <RelativeLayout
+
+        <EditText
+            android:id="@+id/txt_nombrePersona"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:background="#593C3C"
-            android:backgroundTint="#E671D3D6"
-
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="30dp"
-            
-            >
-
-            <TextView
-                android:id="@+id/txtGuardar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="Hola mundo"
-                android:textAlignment="center"
-                android:textSize="20dp"
-                android:textStyle="bold"></TextView>
-
-            <Spinner
-                android:id="@+id/spEmbarcaciones"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtGuardar"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"></Spinner>
-
-            <Spinner
-                android:id="@+id/spDestinos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spEmbarcaciones"
-                android:layout_margin="15dp"></Spinner>
-
-            <Spinner
-                android:id="@+id/spPasajeros"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spDestinos"
-                android:layout_margin="15dp"></Spinner>
-
-            <Spinner
-                android:id="@+id/spHora"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spDestinos"
-                android:layout_margin="15dp"
-                android:layout_toRightOf="@id/spPasajeros"></Spinner>
-
-            <Button
-                android:id="@+id/btGuardar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spPasajeros"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:backgroundTint="#4CAF50"
-                android:text="Guardar"
-                ></Button>
-
-        </RelativeLayout>
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingTop="15dp"/>
 
 
 
+        <EditText
+            android:id="@+id/txt_appPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingTop="15dp"/>
+
+        <EditText
+            android:id="@+id/txt_correoPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:paddingTop="15dp"/>
+
+
+
+        <EditText
+            android:id="@+id/txt_passwordPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:paddingTop="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="30dp"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Lista de Personas" />
+
+    <ListView
+        android:id="@+id/lv_datosPersonas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
